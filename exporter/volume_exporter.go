@@ -1,31 +1,31 @@
 package exporter
 
 import (
-	"log"
 	"github.com/mnadeem/volume_exporter/disk"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/version"
+	"log"
 )
 
 const (
 	namespace = "volume" //for Prometheus metrics.
 )
 
-//VolumeOpts is for options
+// VolumeOpts is for options
 type VolumeOpts struct {
 	Options []VolumeOpt
 }
 
-//VolumeOpt is for option
+// VolumeOpt is for option
 type VolumeOpt struct {
 	Name string
 	Path string
 }
 
-//Define a struct for you collector that contains pointers
-//to prometheus descriptors for each metric you wish to expose.
-//Note you can also include fields of other types if they provide utility
-//but we just won't be exposing them as metrics.
+// Define a struct for you collector that contains pointers
+// to prometheus descriptors for each metric you wish to expose.
+// Note you can also include fields of other types if they provide utility
+// but we just won't be exposing them as metrics.
 type volumeCollector struct {
 	volumeBytesTotal *prometheus.Desc
 	volumeBytesFree  *prometheus.Desc
@@ -35,8 +35,8 @@ type volumeCollector struct {
 	volOptions VolumeOpts
 }
 
-//You must create a constructor for you collector that
-//initializes every descriptor and returns a pointer to the collector
+// You must create a constructor for you collector that
+// initializes every descriptor and returns a pointer to the collector
 func newVolumeCollector(opts *VolumeOpts) *volumeCollector {
 	return &volumeCollector{
 		volumeBytesTotal: prometheus.NewDesc(prometheus.BuildFQName(namespace, "", "bytes_total"),
@@ -60,8 +60,8 @@ func newVolumeCollector(opts *VolumeOpts) *volumeCollector {
 	}
 }
 
-//Each and every collector must implement the Describe function.
-//It essentially writes all descriptors to the prometheus desc channel.
+// Each and every collector must implement the Describe function.
+// It essentially writes all descriptors to the prometheus desc channel.
 func (collector *volumeCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	//Update this section with the each metric you create for a given collector
@@ -71,7 +71,7 @@ func (collector *volumeCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- collector.volumePrcntUsed
 }
 
-//Collect implements required collect function for all promehteus collectors
+// Collect implements required collect function for all promehteus collectors
 func (collector *volumeCollector) Collect(ch chan<- prometheus.Metric) {
 
 	//Implement logic here to determine proper metric value to return to prometheus

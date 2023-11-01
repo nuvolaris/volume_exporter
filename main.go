@@ -3,13 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"net/http"
-	"os"
-	"strings"
-	"log"
 	"github.com/mnadeem/volume_exporter/exporter"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/version"
+	"log"
+	"net/http"
+	"os"
+	"strings"
 )
 
 type volumeNamePathFlag []string
